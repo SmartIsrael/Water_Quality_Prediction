@@ -1,18 +1,21 @@
-Notebook: https://colab.research.google.com/drive/1bblWAGeYnDQahTGlLRSA7eiS6jDhAgeX?usp=sharing
+# Water Quality Model - Group 1
 
-# GROUP STRUCTURE AND TASK ALLOCATION
+## Project Overview
+This project aims to build a machine learning model to analyze water quality data and predict water quality. The project includes various stages such as data handling, model training, regularization, and evaluation. Here is the link to the Colab Notebook for viewing: https://colab.research.google.com/drive/1bblWAGeYnDQahTGlLRSA7eiS6jDhAgeX?usp=sharing
+
+## GROUP STRUCTURE AND TASK ALLOCATION
 
 1. Data Handler- Smart Israel
 
    **Role:** Responsible for loading the dataset and data preprocessing(cleaning, splitting the data, and scaling) it for training.
 
-   # Data Handling and Preprocessing in Water Quality Analysis Project
+   ### Data Handling and Preprocessing in Water Quality Analysis Project
 
-## Overview
+### Overview
 
 This documentation covers the data handling and preprocessing steps in the Water Quality Analysis project. These steps are crucial for preparing the data for machine learning models, ensuring that the data is clean, properly formatted, and optimized for analysis.
 
-## 1. Data Loading
+### 1. Data Loading
 
 The first step in our data handling process is loading the data from a CSV file.
 
@@ -28,7 +31,7 @@ df = pd.read_csv(data_csv)
 - The `read_csv()` function loads the data from the CSV file into a pandas DataFrame.
 - The resulting `df` is our main DataFrame that we'll work with throughout the preprocessing steps.
 
-## 2. Data Exploration
+### 2. Data Exploration
 
 Before preprocessing, it's important to understand our data:
 
@@ -45,7 +48,7 @@ df.isnull().sum()
 - `df.shape`: Returns a tuple representing the dimensionality of the DataFrame (rows, columns).
 - `df.isnull().sum()`: Counts the number of null values in each column.
 
-## 3. Handling Missing Values
+### 3. Handling Missing Values
 
 Our approach to handling missing values is to replace them with the mean of their respective columns:
 
@@ -60,7 +63,7 @@ df = df.fillna(df.mean())
 
 **Note:** The choice to use mean imputation was made to maintain the dataset size. However, it's important to consider that this method can reduce the variance in the data and potentially weaken relationships between variables. In a more comprehensive analysis, you might consider more advanced imputation techniques or analyze the pattern of missingness.
 
-## 4. Feature Selection
+### 4. Feature Selection
 
 We separate our features (X) from our target variable (y):
 
@@ -73,7 +76,7 @@ y = df['Potability']  # Target variable
 - `df.drop('Potability', axis=1)` creates a new DataFrame `X` with all columns except 'Potability'.
 - `df['Potability']` selects only the 'Potability' column as our target variable `y`.
 
-## 5. Data Splitting
+### 5. Data Splitting
 
 We split our data into training and testing sets:
 
@@ -88,7 +91,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 - `test_size=0.2` means 20% of the data will be used for testing, and 80% for training.
 - `random_state=42` ensures reproducibility of the split.
 
-## 6. Feature Scaling
+### 6. Feature Scaling
 
 The final preprocessing step is scaling our features:
 
@@ -113,9 +116,16 @@ X_test_scaled = scaler.transform(X_test)
 
 These preprocessing steps prepare our water quality data for machine learning models. The data is now cleaned, split into training and testing sets, and scaled appropriately. This preprocessing pipeline ensures that our data is in the optimal format for training our neural network models, including those with L1 and L2 regularization.
 
-3. Vanilla Model Implementor - Teniola Ajani
+---
 
-   **Role:** Implement a baseline Neural network model with a simple architecture(no regularization or optimization techniques).
+2. Vanilla Model Implementor - Teniola Ajani
+
+   **Role:** Vanilla Model Implementation
+   - Built a baseline model with three layers: input layer (64 neurons), one hidden layer (32 neurons), and an output layer (1 neuron).
+   - Used ReLU activation for the input and hidden layers and sigmoid activation for the output layer for binary classification
+   - Trained the model for 100 epochs with 20% validation split and a batch size of 32.
+   - Achieved a test accuracy of [65.5%], but overfitting was observed, indicating the need for regularization.
+---
 
 4. L1 Regularization Implementor - Emmanuel Begati
 
