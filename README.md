@@ -6,19 +6,126 @@ Notebook: https://colab.research.google.com/drive/1bblWAGeYnDQahTGlLRSA7eiS6jDhA
 
    **Role:** Responsible for loading the dataset and data preprocessing(cleaning, splitting the data, and scaling) it for training.
 
-2. Vanilla Model Implementor - Teniola Ajani
+   # Data Handling and Preprocessing in Water Quality Analysis Project
+
+## Overview
+
+This documentation covers the data handling and preprocessing steps in the Water Quality Analysis project. These steps are crucial for preparing the data for machine learning models, ensuring that the data is clean, properly formatted, and optimized for analysis.
+
+## 1. Data Loading
+
+The first step in our data handling process is loading the data from a CSV file.
+
+```python
+import pandas as pd
+
+data_csv = './water_potability.csv'
+df = pd.read_csv(data_csv)
+```
+
+**Explanation:**
+- We use pandas, a powerful data manipulation library in Python.
+- The `read_csv()` function loads the data from the CSV file into a pandas DataFrame.
+- The resulting `df` is our main DataFrame that we'll work with throughout the preprocessing steps.
+
+## 2. Data Exploration
+
+Before preprocessing, it's important to understand our data:
+
+```python
+df.head()
+df.describe()
+df.shape
+df.isnull().sum()
+```
+
+**Explanation:**
+- `df.head()`: Displays the first few rows of the DataFrame, giving us a quick look at the data structure.
+- `df.describe()`: Provides statistical summary of the numerical columns (count, mean, std, min, 25%, 50%, 75%, max).
+- `df.shape`: Returns a tuple representing the dimensionality of the DataFrame (rows, columns).
+- `df.isnull().sum()`: Counts the number of null values in each column.
+
+## 3. Handling Missing Values
+
+Our approach to handling missing values is to replace them with the mean of their respective columns:
+
+```python
+df = df.fillna(df.mean())
+```
+
+**Explanation:**
+- `fillna()` is used to fill null values.
+- We use the mean of each column to fill the nulls in that column.
+- This method helps preserve the overall distribution of the data while filling in the gaps.
+
+**Note:** The choice to use mean imputation was made to maintain the dataset size. However, it's important to consider that this method can reduce the variance in the data and potentially weaken relationships between variables. In a more comprehensive analysis, you might consider more advanced imputation techniques or analyze the pattern of missingness.
+
+## 4. Feature Selection
+
+We separate our features (X) from our target variable (y):
+
+```python
+X = df.drop('Potability', axis=1)  # Features
+y = df['Potability']  # Target variable
+```
+
+**Explanation:**
+- `df.drop('Potability', axis=1)` creates a new DataFrame `X` with all columns except 'Potability'.
+- `df['Potability']` selects only the 'Potability' column as our target variable `y`.
+
+## 5. Data Splitting
+
+We split our data into training and testing sets:
+
+```python
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+**Explanation:**
+- We use scikit-learn's `train_test_split` function.
+- `test_size=0.2` means 20% of the data will be used for testing, and 80% for training.
+- `random_state=42` ensures reproducibility of the split.
+
+## 6. Feature Scaling
+
+The final preprocessing step is scaling our features:
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+```
+
+**Explanation:**
+- We use `StandardScaler` from scikit-learn, which standardizes features by removing the mean and scaling to unit variance.
+- `scaler.fit(X_train)`: The scaler learns the mean and variance of the training data.
+- `scaler.transform(X_train)`: The training data is transformed using the learned parameters.
+- `scaler.transform(X_test)`: The test data is transformed using the same parameters learned from the training data.
+
+**Important:** We fit the scaler only on the training data to prevent data leakage. The same transformation is then applied to both training and test data.
+
+## Conclusion
+
+These preprocessing steps prepare our water quality data for machine learning models. The data is now cleaned, split into training and testing sets, and scaled appropriately. This preprocessing pipeline ensures that our data is in the optimal format for training our neural network models, including those with L1 and L2 regularization.
+
+3. Vanilla Model Implementor - Teniola Ajani
 
    **Role:** Implement a baseline Neural network model with a simple architecture(no regularization or optimization techniques).
 
-3. L1 Regularization Implementor - Emmanuel Begati
+4. L1 Regularization Implementor - Emmanuel Begati
 
    **Role:** Focuses on applying L1 Regularization to the model and testing it's effect on the performance.
 
-4. L2 Regularization Implementor - Kathrine Ganda
+5. L2 Regularization Implementor - Kathrine Ganda
 
    **Role:** Responsible for applying L2 Regularization to the model and testing its effect on the performance. Comparing its results to the vanilla model and L1 regularization.
 
-5. Error Analysis - Anissa
+6. Error Analysis - Anissa
    **Role:** Performs analysis on errors made by the models.
 
 # L2 Regularisation Implementation
