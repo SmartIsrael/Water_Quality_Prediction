@@ -269,4 +269,33 @@ The network, with only two hidden layers, is relatively simple. In such cases, L
 
 ## Conclusion:
 
-L2 regularization performed better by maintaining the contributions of all features. On the other hand, L1 regularization may have been too aggressive in eliminating potentially important features, leading to slightly worse performance.
+
+## **Error Analysis - Anissa OUEDRAOGO**
+
+As part of the evaluation of our water quality prediction models, error analysis was conducted to compare the performance of three models: **Vanilla (no regularization)**, **L1 Regularization**, and **L2 Regularization**. The primary metrics used for error analysis were:
+
+- **Mean Squared Error (MSE):** Measures the average squared difference between actual and predicted values.
+- **Mean Absolute Error (MAE):** Captures the average absolute difference between actual and predicted values.
+- **Root Mean Squared Error (RMSE):** Provides the square root of the MSE, maintaining the units of the target variable.
+
+### 1. **Vanilla Model:**
+- **MSE:** 0.2517
+- **MAE:** 0.3995
+- **RMSE:** 0.5017
+- **Observations:** The vanilla model exhibited the highest error across all metrics. This indicated **overfitting** to the training data, highlighting the need for regularization to improve generalization on unseen data.
+
+### 2. **L1 Regularization Model:**
+- **MSE:** 0.2037
+- **MAE:** 0.4077
+- **RMSE:** 0.4514
+- **Observations:** The L1 regularized model showed improved performance over the vanilla model in terms of MSE and RMSE, though it slightly increased the MAE. **L1 regularization** tends to drive some feature weights to zero, reducing model complexity, which may result in improved generalization but also slight feature elimination.
+
+### 3. **L2 Regularization Model:**
+- **MSE:** 0.2026
+- **MAE:** 0.4101
+- **RMSE:** 0.4501
+- **Observations:** The L2 regularized model performed best with the lowest MSE and RMSE. **L2 regularization** shrinks the weights of less important features without driving them to zero, resulting in a more balanced and generalizable model. This model showed the greatest ability to generalize well on the test set.
+
+### **Conclusion:**
+The error analysis demonstrated that both **L1** and **L2 regularization** techniques improved the model’s generalization ability over the vanilla model. However, **L2 regularization outperformed L1 regularization** slightly in this case, as it maintained better performance across all metrics. Regularization effectively controlled overfitting, allowing the models to perform better on unseen data.
+
