@@ -1,15 +1,26 @@
-# Water Quality Model - Group 1
+# Water Quality Model - Group 5
 
 ## Project Overview
 This project aims to build a machine learning model to analyze water quality data and predict water quality. The project includes various stages such as data handling, model training, regularization, and evaluation. Here is the link to the Colab Notebook for viewing: https://colab.research.google.com/drive/1bblWAGeYnDQahTGlLRSA7eiS6jDhAgeX?usp=sharing
 
-## GROUP STRUCTURE AND TASK ALLOCATION
+### GROUP STRUCTURE AND TASK ALLOCATION
 
 1. Data Handler- Smart Israel
-
    **Role:** Responsible for loading the dataset and data preprocessing(cleaning, splitting the data, and scaling) it for training.
+   
+2. Vanilla Model Implementor - Teniola Ajani
+   **Role:** Vanilla Model Implementation
 
-   ### Data Handling and Preprocessing in Water Quality Analysis Project
+3.  L1 Regularization Implementor - Emmanuel Begati
+   **Role:** Focuses on applying L1 Regularization to the model and testing it's effect on the performance.
+    
+4. L2 Regularization Implementor - Kathrine Ganda
+   **Role:** Responsible for applying L2 Regularization to the model and testing its effect on the performance. Comparing its results to the vanilla model and L1 regularization.
+
+5. Error Analysis - Anissa
+   **Role:** Performs analysis on errors made by the models.
+
+# Data Handling and Preprocessing in Water Quality Analysis Project
 
 ### Overview
 
@@ -112,33 +123,103 @@ X_test_scaled = scaler.transform(X_test)
 
 **Important:** We fit the scaler only on the training data to prevent data leakage. The same transformation is then applied to both training and test data.
 
-## Conclusion
+### Conclusion
 
 These preprocessing steps prepare our water quality data for machine learning models. The data is now cleaned, split into training and testing sets, and scaled appropriately. This preprocessing pipeline ensures that our data is in the optimal format for training our neural network models, including those with L1 and L2 regularization.
 
 ---
 
-## 2. Vanilla Model Implementor - Teniola Ajani
+# Vanilla Model Implementation
 
-   **Role:** Vanilla Model Implementation
    - Built a baseline model with three layers: input layer (64 neurons), one hidden layer (32 neurons), and an output layer (1 neuron).
    - Used ReLU activation for the input and hidden layers and sigmoid activation for the output layer for binary classification
    - Trained the model for 100 epochs with 20% validation split and a batch size of 32.
    - Achieved a test accuracy of **65.5%**, but overfitting was observed, indicating the need for regularization.
 ---
 
-4. L1 Regularization Implementor - Emmanuel Begati
+# L1 Regularization Implementation
 
-   **Role:** Focuses on applying L1 Regularization to the model and testing it's effect on the performance.
+L1 regularization, also known as Lasso regularization, was applied to the neural network model to encourage sparsity and potentially improve generalization.
 
-5. L2 Regularization Implementor - Kathrine Ganda
+### Model Architecture
 
-   **Role:** Responsible for applying L2 Regularization to the model and testing its effect on the performance. Comparing its results to the vanilla model and L1 regularization.
+```python
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.regularizers import l1
 
-6. Error Analysis - Anissa
-   **Role:** Performs analysis on errors made by the models.
+l1_model = Sequential([
+    Dense(64, activation='relu', input_shape=(X_train_scaled.shape[1],),
+          kernel_regularizer=l1(0.001)),
+    Dense(32, activation='relu', kernel_regularizer=l1(0.001)),
+    Dense(1, activation='sigmoid')
+])
+```
 
-# L2 Regularisation Implementation
+- L1 regularization is applied to both hidden layers with a regularization strength of 0.001
+- The output layer uses sigmoid activation for binary classification
+
+### Model Compilation and Training
+
+```python
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping
+
+l1_model.compile(optimizer=Adam(learning_rate=0.001),
+                 loss='binary_crossentropy',
+                 metrics=['accuracy', 'Precision', 'Recall', 'AUC'])
+
+l1_early_stopping = EarlyStopping(
+    monitor='val_loss',
+    patience=5,
+    restore_best_weights=True
+)
+
+l1_model_fitted = l1_model.fit(X_train_scaled, y_train,
+                               epochs=50,
+                               batch_size=32,
+                               validation_split=0.2,
+                               callbacks=[l1_early_stopping],
+                               verbose=1)
+```
+
+- Adam optimizer was used with a learning rate of 0.001
+- Early stopping was implemented to prevent overfitting
+- The model was trained for a maximum of 50 epochs with early stopping
+
+## Results
+
+The L1 regularized model's performance was evaluated on the test set:
+
+```python
+loss, test_accuracy, test_precision, test_recall, test_auc = l1_model.evaluate(X_test_scaled, y_test, verbose=1)
+
+print(f'L1 Model Test Accuracy: {test_accuracy}')
+print(f'Test Loss: {loss}')
+print(f'L1 Model Test Precision: {test_precision}')
+print(f'L1 Test Recall: {test_recall}')
+print(f'L1 Test AUC: {test_auc}')
+```
+
+Output:
+	21/21 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - AUC: 0.6811 - Precision: 0.5474 - Recall: 0.3487 - accuracy: 0.6642 - loss: 0.6351 
+L1 Model Test Accuracy: 0.6737805008888245
+Test Loss: 0.6324691772460938
+L1 Model Test Precision: 0.59375
+L1 Test Recall: 0.3893442749977112
+L1 Test AUC: 0.6968555450439453
+
+
+## Note on Optimizer Choice
+
+While Adam optimizer was used in the final implementation, RMSprop was also tested. However, Adam provided better results for this particular dataset and model architecture.
+
+## Conclusion
+
+The L1 regularization technique was applied to improve the model's generalization capability. While it helped reduce overfitting to some extent, the overall performance improvement was modest. Further tuning of hyperparameters or exploration of other techniques might be necessary for significant improvements.
+
+
+# L2 Regularisation Implementation - Katherine Ganda
 
 This technique was applied to the vanilla model neural network to prevent overfitting. The Adam optimiser and early stopping were used to further improve the model’s performance.
 
