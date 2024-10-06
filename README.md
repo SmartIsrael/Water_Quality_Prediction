@@ -118,7 +118,7 @@ These preprocessing steps prepare our water quality data for machine learning mo
 
 ---
 
-2. Vanilla Model Implementor - Teniola Ajani
+## 2. Vanilla Model Implementor - Teniola Ajani
 
    **Role:** Vanilla Model Implementation
    - Built a baseline model with three layers: input layer (64 neurons), one hidden layer (32 neurons), and an output layer (1 neuron).
