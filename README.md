@@ -124,7 +124,7 @@ These preprocessing steps prepare our water quality data for machine learning mo
    - Built a baseline model with three layers: input layer (64 neurons), one hidden layer (32 neurons), and an output layer (1 neuron).
    - Used ReLU activation for the input and hidden layers and sigmoid activation for the output layer for binary classification
    - Trained the model for 100 epochs with 20% validation split and a batch size of 32.
-   - Achieved a test accuracy of [65.5%], but overfitting was observed, indicating the need for regularization.
+   - Achieved a test accuracy of **65.5%**, but overfitting was observed, indicating the need for regularization.
 ---
 
 4. L1 Regularization Implementor - Emmanuel Begati
