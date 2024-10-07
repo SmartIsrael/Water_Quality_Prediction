@@ -201,13 +201,12 @@ print(f'L1 Test Recall: {test_recall}')
 print(f'L1 Test AUC: {test_auc}')
 ```
 
-Output:
-	21/21 ━━━━━━━━━━━━━━━━━━━━ 0s 3ms/step - AUC: 0.6811 - Precision: 0.5474 - Recall: 0.3487 - accuracy: 0.6642 - loss: 0.6351 
-L1 Model Test Accuracy: 0.6737805008888245
-Test Loss: 0.6324691772460938
-L1 Model Test Precision: 0.59375
-L1 Test Recall: 0.3893442749977112
-L1 Test AUC: 0.6968555450439453
+21/21 ━━━━━━━━━━━━━━━━━━━━ 0s 2ms/step - AUC: 0.6861 - Precision: 0.5969 - Recall: 0.3468 - accuracy: 0.6827 - loss: 0.6301 
+L1 Model Test Accuracy: 0.6829268336296082
+Test Loss: 0.6328526735305786
+L1 Model Test Precision: 0.6285714507102966
+L1 Test Recall: 0.3606557250022888
+L1 Test AUC: 0.6949506998062134
 
 
 ## Note on Optimizer Choice
@@ -221,7 +220,7 @@ The L1 regularization technique was applied to improve the model's generalizatio
 
 # L2 Regularisation Implementation - Katherine Ganda
 
-This technique was applied to the vanilla model neural network to prevent overfitting. The Adam optimiser and early stopping were used to further improve the model’s performance.
+This technique was applied to the vanilla model neural network to prevent overfitting. The Adam optimiser which provided slightly better results with an accuracy of (**68.65%**) against RMSprop**(68.45%)**and early stopping were used to improve the model’s performance further.
 
 To find the most effective regularization strength, several L2 values were tested, aiming for stable model performance and good generalization.
 
@@ -250,10 +249,10 @@ After comparing the different values, L2 regularization with a parameter of 0.01
 # Comparison L1 Regularisation and L2 Regularisation
 
 **L1:**
-![L1_evaluation](https://github.com/user-attachments/assets/bf48cb14-0bb4-4f12-8a80-4a40551d9394)
+![image](https://github.com/user-attachments/assets/508c0d5d-eba1-4319-b875-ca2fef729685)
 
 **L2**
-![L2_evaluation](https://github.com/user-attachments/assets/143940ae-73a5-45a6-9df3-2c97f2b53fbe)
+![image](https://github.com/user-attachments/assets/5aa607e5-f622-4f5b-8316-9a879077c34d)
 
 From the model’s evaluation, upon comparing the performance, L2 regularisation provided slightly better performance compared to l1 with both a higher accuracy and lower loss. These results suggest that L2 regularisation helped the model generalize better and improved its ability by minimizing the errors.
 
