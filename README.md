@@ -131,7 +131,7 @@ These preprocessing steps prepare our water quality data for machine learning mo
 
 # Vanilla Model Implementation
 
-   - Built a baseline model with three layers: input layer (64 neurons), one hidden layer (32 neurons), and an output layer (1 neuron).
+   - Built a baseline model with three layers: input layer(64 neurons), two hidden layers (32 neurons and 64 neurons), and an output layer (1 neuron).
    - Used ReLU activation for the input and hidden layers and sigmoid activation for the output layer for binary classification
    - Trained the model for 100 epochs with 20% validation split and a batch size of 32.
    - Achieved a test accuracy of **65.5%**, but overfitting was observed, indicating the need for regularization.
