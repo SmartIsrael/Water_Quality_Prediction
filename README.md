@@ -135,7 +135,7 @@ These preprocessing steps prepare our water quality data for machine learning mo
    - Used ReLU activation for the input and hidden layers and sigmoid activation for the output layer for binary classification
    - Trained the model for 100 epochs with 20% validation split and a batch size of 32.
    - Achieved a test accuracy of **65.5%**, but overfitting was observed, indicating the need for regularization.
-    (https://github.com/SmartIsrael/Water_Quality_Prediction/blob/main/Vanilla_model_loss.png)
+    ![loss](https://github.com/SmartIsrael/Water_Quality_Prediction/blob/main/Vanilla_model_loss.png)
     
 ---
 
