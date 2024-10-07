@@ -279,6 +279,8 @@ As part of the evaluation of our water quality prediction models, error analysis
 - **Mean Absolute Error (MAE):** Captures the average absolute difference between actual and predicted values.
 - **Root Mean Squared Error (RMSE):** Provides the square root of the MSE, maintaining the units of the target variable.
 
+  ![image](https://github.com/user-attachments/assets/81e9bdb1-b2a7-4d1e-aa0d-31a50ac52558)
+
 ### 1. **Vanilla Model:**
 - **MSE:** 0.2517
 - **MAE:** 0.3995
